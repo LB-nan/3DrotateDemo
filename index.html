@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style>
+			html,
+			body{
+				height: 100%;
+				margin: 0;
+				position: relative;
+				overflow: hidden;
+			}
+			#view{
+				position: relative;
+				height: 100%;
+				overflow: hidden;	
+				-webkit-perspective: 300px;		
+				perspective: 300px;			
+			}
+			#box {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin: -384px 0 0 -512px;
+				width: 1024px;
+				height: 768px;
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+				transition: 0.3s;
+			}
+			#box div {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: center center no-repeat;
+				background-size: cover;
+			}
+			#box div:nth-of-type(1){
+				background-image: url(img/10241.jpg);
+			}
+			#box div:nth-of-type(2){
+				background-image: url(img/10242.jpg);
+			}
+			#box div:nth-of-type(3){
+				background-image: url(img/10243.jpg);
+			}
+			#box div:nth-of-type(4){
+				background-image: url(img/10244.jpg);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="view">
+			<div id="box">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/m.Tween.js"></script>
+		<script type="text/javascript">
+			(function(){
+				var box = document.querySelector('#box');
+				var divs = box.querySelectorAll('div');
+				var start;
+				css(box,'rotateY',0)
+				for(var i = 0; i < divs.length; i++){
+					css(divs[i],"rotateY",i*90);
+					css(divs[i],"translateZ",-512);
+				}
+				window.addEventListener('deviceorientation',function(e){
+					var y = Math.round(e.gamma);
+					if(typeof start == undefined){
+						start = y;
+						last = start;
+						return;
+					}
+					y = y - start;
+					if(Math.abs(y - last) > 5){
+						css(box,'rotateY',y);
+						last = y;
+					}
+				});
+			})()
+		</script>
+	</body>
+</html>
