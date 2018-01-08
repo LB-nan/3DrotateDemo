@@ -68,6 +68,7 @@
 				var box = document.querySelector('#box');
 				var divs = box.querySelectorAll('div');
 				var start;
+				var last;
 				css(box,'rotateY',0)
 				for(var i = 0; i < divs.length; i++){
 					css(divs[i],"rotateY",i*90);
@@ -75,7 +76,7 @@
 				}
 				window.addEventListener('deviceorientation',function(e){
 					var y = Math.round(e.gamma);
-					if(typeof start == undefined){
+					if(typeof start == 'undefined'){
 						start = y;
 						last = start;
 						return;
